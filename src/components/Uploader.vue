@@ -140,6 +140,12 @@ export default {
                         this.uploadTotal = progressEvent.total;
                         this.uploadProgress = Math.round((progressEvent.loaded / progressEvent.total) * 100);
                     },
+                    headers: {
+                        // Add your custom header here
+                        'ngrok-skip-browser-warning': '69420',
+                        // Add any other headers as needed
+                    },
+
                 })
                     .then((response) => {
                         console.log('Status:', response.status);
