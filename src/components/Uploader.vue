@@ -140,32 +140,16 @@ export default {
                         this.uploadTotal = progressEvent.total;
                         this.uploadProgress = Math.round((progressEvent.loaded / progressEvent.total) * 100);
                     },
-                    headers: {
-                        'ngrok-skip-browser-warning': '69420',
-                    },
-
                 })
                     .then((response) => {
-                        // Make a GET request to fetch the image with the same ngrok-skip-browser-warning header
-                        let config = {
-                            method: 'get',
-                            maxBodyLength: Infinity,
-                            url: `${API_ENDPOINT}/getImage?filename=${response.data['file']}`,
-                            headers: {
-                                'ngrok-skip-browser-warning': '1'
-                            }
-                        };
-                        axios.request(config)
-                            .then((res) => {
-                                console.log('Status:', res);
-                                console.log('Upload successful:', response.data);
+                        console.log('Status:', response.status);
+                        console.log('Upload successful:', response.data);
 
-                                this.imageUrl = res.data;
-                                this.results = response.data.result.prediction === 1 ? "Dermatitis" : "Prosiaris"
-                                console.log(response.data['file'])
-                                console.log(response.data.result.prediction)
-                                this.imageUploaded = true;
-                            })
+                        this.imageUrl = `${API_ENDPOINT}/getImage?filename=${response.data['file']}`;
+                        this.results = response.data.result.prediction === 1 ? "Dermatitis" : "Prosiaris"
+                        console.log(response.data['file'])
+                        console.log(response.data.result.prediction)
+                        this.imageUploaded = true;
                     })
                     .catch((error) => {
                         console.error('Upload error:', error);
