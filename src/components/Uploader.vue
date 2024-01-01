@@ -149,18 +149,18 @@ export default {
                         // Make a GET request to fetch the image with the same ngrok-skip-browser-warning header
                         let config = {
                             method: 'get',
-                            url: 'https://regular-desired-moray.ngrok-free.app',
+                            maxBodyLength: Infinity,
+                            url: `${API_ENDPOINT}/getImage?filename=${response.data['file']}`,
                             headers: {
                                 'ngrok-skip-browser-warning': '1'
-                            },
+                            }
                         };
-
                         axios.request(config)
-                            .then(() => {
-                                console.log('Status:', response.status);
+                            .then((res) => {
+                                console.log('Status:', res);
                                 console.log('Upload successful:', response.data);
 
-                                this.imageUrl = `${API_ENDPOINT}/getImage?filename=${response.data['file']}`;
+                                this.imageUrl = res.data;
                                 this.results = response.data.result.prediction === 1 ? "Dermatitis" : "Prosiaris"
                                 console.log(response.data['file'])
                                 console.log(response.data.result.prediction)
