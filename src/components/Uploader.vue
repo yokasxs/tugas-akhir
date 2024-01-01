@@ -141,21 +141,26 @@ export default {
                         this.uploadProgress = Math.round((progressEvent.loaded / progressEvent.total) * 100);
                     },
                     headers: {
-                        // Add your custom header here
                         'ngrok-skip-browser-warning': '69420',
-                        // Add any other headers as needed
                     },
 
                 })
                     .then((response) => {
-                        console.log('Status:', response.status);
-                        console.log('Upload successful:', response.data);
+                        // Make a GET request to fetch the image with the same ngrok-skip-browser-warning header
+                        axios.get(`${API_ENDPOINT}`, {
+                            headers: {
+                                'ngrok-skip-browser-warning': '69420',
+                            },
+                        }).then(() => {
+                            console.log('Status:', response.status);
+                            console.log('Upload successful:', response.data);
 
-                        this.imageUrl = `${API_ENDPOINT}/getImage?filename=${response.data['file']}`;
-                        this.results = response.data.result.prediction === 1 ? "Dermatitis" : "Prosiaris"
-                        console.log(response.data['file'])
-                        console.log(response.data.result.prediction)
-                        this.imageUploaded = true;
+                            this.imageUrl = `${API_ENDPOINT}/getImage?filename=${response.data['file']}`;
+                            this.results = response.data.result.prediction === 1 ? "Dermatitis" : "Prosiaris"
+                            console.log(response.data['file'])
+                            console.log(response.data.result.prediction)
+                            this.imageUploaded = true;
+                        })
                     })
                     .catch((error) => {
                         console.error('Upload error:', error);
