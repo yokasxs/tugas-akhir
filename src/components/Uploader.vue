@@ -147,20 +147,25 @@ export default {
                 })
                     .then((response) => {
                         // Make a GET request to fetch the image with the same ngrok-skip-browser-warning header
-                        axios.get(`${API_ENDPOINT}`, {
+                        let config = {
+                            method: 'get',
+                            url: 'https://regular-desired-moray.ngrok-free.app',
                             headers: {
-                                'ngrok-skip-browser-warning': '69420',
+                                'ngrok-skip-browser-warning': '1'
                             },
-                        }).then(() => {
-                            console.log('Status:', response.status);
-                            console.log('Upload successful:', response.data);
+                        };
 
-                            this.imageUrl = `${API_ENDPOINT}/getImage?filename=${response.data['file']}`;
-                            this.results = response.data.result.prediction === 1 ? "Dermatitis" : "Prosiaris"
-                            console.log(response.data['file'])
-                            console.log(response.data.result.prediction)
-                            this.imageUploaded = true;
-                        })
+                        axios.request(config)
+                            .then(() => {
+                                console.log('Status:', response.status);
+                                console.log('Upload successful:', response.data);
+
+                                this.imageUrl = `${API_ENDPOINT}/getImage?filename=${response.data['file']}`;
+                                this.results = response.data.result.prediction === 1 ? "Dermatitis" : "Prosiaris"
+                                console.log(response.data['file'])
+                                console.log(response.data.result.prediction)
+                                this.imageUploaded = true;
+                            })
                     })
                     .catch((error) => {
                         console.error('Upload error:', error);
