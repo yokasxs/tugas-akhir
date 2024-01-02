@@ -56,8 +56,9 @@
                         <img v-if="imageUrl" :src="imageUrl" alt="Uploaded Image" />
                     </div>
                     <div class="text-center pb-4 ">
-                        <div class="md:text-lg text-sm">Hasil Analisis Jenis Penyakit Kulit</div>
+                        <div class="md:text-lg text-sm"> Jenis Penyakit Kulit</div>
                         <div class="md:text-3xl text-2xl font-semibold">{{ results }}</div>
+                        <div class="md:text-lg text-sm pt-2">Confidence ( {{ confidence }} % )</div>
                     </div>
                     <span class="w-full flex justify-center pt-4">
                         <router-link :to="'/consultation?' + `label=${results}`" class="w-full">
@@ -97,6 +98,7 @@ export default {
             imageUploaded: false,
             imageUrl: null,
             results: null,
+            confidence: null
         };
     },
     methods: {
@@ -146,9 +148,8 @@ export default {
                         console.log('Upload successful:', response.data);
 
                         this.imageUrl = `${API_ENDPOINT}/getImage?filename=${response.data['file']}`;
-                        this.results = response.data.result.prediction === 1 ? "Dermatitis" : "Prosiaris"
-                        console.log(response.data['file'])
-                        console.log(response.data.result.prediction)
+                        this.results = response.data.result.prediction
+                        this.confidence = response.data.result.confidence
                         this.imageUploaded = true;
                     })
                     .catch((error) => {
