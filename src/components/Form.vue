@@ -30,12 +30,12 @@
                                 <select v-model="selectedLabel" :disabled="label !== null"
                                     class="border-2 md:text-md text-sm py-1 px-4 rounded focus:outline-none"
                                     :class="{ 'border-none bg-black/10 text-black/50': label !== null }">
-                                    <option :value="null" disabled selected>{{ placeholderText }}</option>
-                                    <option value="Dermatitis">Dermatitis</option>
-                                    <option value="Prosiaris">Prosiaris</option>
-                                    <option value="option3">Option 3</option>
-                                    <option value="option4">Option 4</option>
-                                    <option value="option5">Option 5</option>
+                                    <option :value="null" :disabled="selectedLabel !== null">{{ placeholderText }}</option>
+                                    <option value="Acne dan Rosacea">Acne dan Rosacea</option>
+                                    <option value="Psoriasis">Psoriasis</option>
+                                    <option value="Kanker Kulit">Kanker Kulit</option>
+                                    <option value="Normal">Normal</option>
+                                    <option value="Psoriasis">Psoriasis</option>
                                 </select>
                             </div>
                             <div class="flex flex-col gap-y-2">
